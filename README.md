@@ -8,7 +8,7 @@ The generated files are written in the DNA format as specified [here](https://gi
 
 To generate a dataset, use the following command:
 
-	java -jar dataset.jar $gdsType $gdsArguments $graphType $graphArguments $batchType $batchArguments $seed $batches $destDir $graphFilename $batchSuffix
+	java -jar dna-dataset.jar $gdsType $gdsArguments $graphType $graphArguments $batchType $batchArguments $seed $batches $destDir $graphFilename $batchSuffix
 
 It is mandatory to specify all 11 arguments.
 They are described in the following:
@@ -57,7 +57,7 @@ The pseudo random number generator is initialized with the seed 0 (`0`) and a to
 The output is written to example1/ (`example1/`).
 The graph is written to example1/0.dnag (`0.dnag`) and the batches to example1/${t}.dnab (`.dnab`) where `${t}` is the target timestamp of the batch.
 
-	java -jar dataset.jar Undirected - Random 100,500 RandomEdgeExchange 10,999999 0 10 example1/ 0.dnag .dnab
+	java -jar dna-dataset.jar Undirected - Random 100,500 RandomEdgeExchange 10,999999 0 10 example1/ 0.dnag .dnab
 
 Hence, this will result in the following files:
 
@@ -72,7 +72,7 @@ Hence, this will result in the following files:
 Starts with a directed random graph with 20 vertices and 300 edges.
 Then, 100 batches are generated, each adding 10 vertices which create 3 edges each using preferential atachement.
 
-	java -jar dataset.jar Directed - 	Random 20,300 BarabasiAlbert 10,3 0 100 example2/ 0.dnag .dnab
+	java -jar dna-dataset.jar Directed - 	Random 20,300 BarabasiAlbert 10,3 0 100 example2/ 0.dnag .dnab
 
 
 ## Download
