@@ -37,10 +37,14 @@ public class SnapshotExport {
 		EDGE_LIST, NODE_LIST
 	};
 
+	public enum SeparatorType {
+		COMMA, TAB
+	};
+
 	public SnapshotExport(String srcDir, String graphFilename,
 			String batchSuffix, Integer batches, String dstDir,
 			String fileSuffix, String outputFormat, String infoType,
-			String separator, Boolean addInverseEdge, Boolean incrementIndex) {
+			String separatorType, Boolean addInverseEdge, Boolean incrementIndex) {
 		this.srcDir = srcDir;
 		this.graphFilename = graphFilename;
 		this.batchSuffix = batchSuffix;
@@ -51,7 +55,17 @@ public class SnapshotExport {
 
 		this.outputFormat = OutputFormat.valueOf(outputFormat);
 		this.infoType = InfoType.valueOf(infoType);
-		this.separator = separator;
+		switch (SeparatorType.valueOf(separatorType)) {
+		case COMMA:
+			this.separator = ",";
+			break;
+		case TAB:
+			this.separator = "	";
+			break;
+		default:
+			throw new IllegalArgumentException("invalid separator type: "
+					+ separator);
+		}
 		this.addInverseEdge = addInverseEdge;
 		this.incrementIndex = incrementIndex;
 	}
@@ -73,7 +87,8 @@ public class SnapshotExport {
 				new EnumArg("infoType",
 						"what to put at the beginning of each snapshot file",
 						InfoType.values()),
-				new StringArg("separator", "separator used for each edge"),
+				new EnumArg("separatorType", "separator used for each edge",
+						SeparatorType.values()),
 				new BooleanArg("addInverseEdge",
 						"if set true, undirected edges {a,b} are output as (a,b) AND (b,a)"),
 				new BooleanArg(
