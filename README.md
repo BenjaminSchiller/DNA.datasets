@@ -4,9 +4,9 @@ This repo provides sources for creating various datasets of dynamic graphs using
 The generated files are written in the DNA format as specified [here](https://github.com/BenjaminSchiller/DNA.doc/blob/master/doc/FORMATS.md).
 
 
-## Usage
+## Usage for dataset generation
 
-To generate a dataset, use the following command:
+To generate a dataset in the DNA format, use the following command:
 
 	java -jar dna-dataset.jar $gdsType $gdsArguments $graphType $graphArguments $batchType $batchArguments $seed $batches $destDir $graphFilename $batchSuffix
 
@@ -43,6 +43,40 @@ For each component (gdsType, graphType, batchType) arguments can be specified to
 For a list of possible arguments for the different types, we refer to [this (most probably not complete) documentation](https://github.com/BenjaminSchiller/DNA.doc/blob/master/doc/FROM_ARGS.md).
 
 Since all 11 arguments have to be specified, you should use `-` to denote empty arguments.
+
+## Usage for dataset export to snapshots
+
+To read an existing dataset (in DNA format) from files and generate separate snapshot files for each state use the following comment:
+
+	java -jar $srcDir $graphFilename $batchSuffix $batches $dstDir $snapshotSuffix $outputFormat $infoType $separator $addInverseEdge $incrementIndex
+
+It is mandatory to specify all 10 arguments.
+They are described in the following:
+
+	expecting 11 arguments (got 0)
+	   0: srcDir - path to DNA dataset, ending with '/' (String)
+	
+	   1: graphFilename - filename of initial graph, e.g., 0.dnag (String)
+	
+	   2: batchSuffix - suffix of batch files, e.g., .dnab (String)
+	
+	   3: batches - number of batches to process (Integer)
+	
+	   4: dstDir - path where to write files, ending with '/' (String)
+	
+	   5: snapshotSuffix - suffix of files to be written (String)
+	
+	   6: outputFormat - format of the output (String)
+	      values:  EDGE_LIST NODE_LIST
+	
+	   7: infoType - what to put at the beginning of each snapshot file (String)
+	      values:  NONE N NM
+	
+	   8: separator - separator used for each edge (String)
+	
+	   9: addInverseEdge - if set true, undirected edges {a,b} are output as (a,b) AND (b,a) (Boolean)
+	
+	  10: incrementIndex - if set true, each node index ist inremented by 1 (in case node indexes must start at 1) (Boolean)
 
 ## Examples
 
